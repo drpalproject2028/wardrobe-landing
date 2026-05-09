@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wardrobe.AI — Em breve</title>
+<meta name="description" content="Wardrobe AI — o teu guarda-roupa organizado com IA. Lançamento iminente.">
+<meta property="og:title" content="Wardrobe.AI">
+<meta property="og:description" content="O teu guarda-roupa organizado com IA. Lançamento iminente.">
+<meta property="og:type" content="website">
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --bg-card: #141414;
+    --bg-elevated: #1C1C1C;
+    --bg-input: #242424;
+    --border: #2A2A2A;
+    --text: #fff;
+    --text-secondary: #8E8E93;
+    --text-tertiary: #48484A;
+    --accent: #D4AF37;
+    --accent-soft: rgba(212,175,55,0.12);
+    --success: #30D158;
+    --danger: #FF453A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 56px 24px 96px; }
+
+  /* Lang switcher */
+  .lang-switch {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+  }
+  .lang-switch a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--border);
+  }
+  .lang-switch a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* Hero */
+  .hero { text-align: center; margin-bottom: 56px; }
+  .kicker {
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .wordmark {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 56px;
+    font-weight: 300;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+  }
+  .wordmark .dot { color: var(--accent); font-weight: 400; }
+  .divider {
+    width: 56px; height: 1px;
+    background: var(--accent);
+    margin: 22px auto;
+  }
+  .tagline {
+    color: var(--text-secondary);
+    font-size: 17px;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 26px;
+  }
+  .badge-soon {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 6px 14px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* Sections */
+  section { margin-bottom: 48px; }
+  h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+    margin-bottom: 16px;
+  }
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .feature {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+  }
+  .feature-icon { font-size: 22px; margin-bottom: 8px; }
+  .feature-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .feature-desc { color: var(--text-secondary); font-size: 13px; line-height: 19px; }
+
+  /* Form */
+  .form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 28px 24px;
+  }
+  label.field {
+    display: block;
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  input[type="email"], input[type="text"], select {
+    width: 100%;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 15px;
+    color: var(--text);
+    margin-bottom: 18px;
+    font-family: inherit;
+  }
+  input:focus, select:focus { outline: none; border-color: var(--accent); }
+
+  /* Honeypot — invisible to humans, traps bots */
+  .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+  /* Pricing tiles */
+  .pricing {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .pricing-tile {
+    background: var(--bg-input);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.15s;
+  }
+  .pricing-tile:hover { border-color: var(--accent); }
+  .pricing-tile input[type="radio"] {
+    width: 18px; height: 18px;
+    accent-color: var(--accent);
+    margin: 0;
+    flex-shrink: 0;
+  }
+  .pricing-tile.selected { border-color: var(--accent); background: var(--accent-soft); }
+  .pricing-info { flex: 1; }
+  .pricing-price { font-weight: 700; font-size: 15px; }
+  .pricing-sub { color: var(--text-secondary); font-size: 12px; margin-top: 2px; }
+
+  /* Consent */
+  .consent {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 18px;
+  }
+  .consent label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 19px;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .consent label:last-child { margin-bottom: 0; }
+  .consent input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--accent);
+    margin: 1px 0 0 0;
+    flex-shrink: 0;
+  }
+  .consent .req { color: var(--accent); font-weight: 700; }
+  .consent a { color: var(--accent); }
+
+  /* Submit */
+  .btn-primary {
+    width: 100%;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    font-family: inherit;
+  }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .alert {
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    display: none;
+  }
+  .alert-success {
+    background: rgba(48,209,88,0.1);
+    border: 1px solid var(--success);
+    color: var(--success);
+  }
+  .alert-error {
+    background: rgba(255,69,58,0.1);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+  }
+
+  footer {
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: 12px;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--text-secondary); margin: 0 6px; text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .wordmark { font-size: 40px; }
+    main { padding: 40px 18px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<main>
+
+<div class="lang-switch">
+  <a href="/en">English version →</a>
+</div>
+
+<section class="hero">
+  <div class="kicker">PALCORE presents</div>
+  <h1 class="wordmark">Wardrobe<span class="dot">.AI</span></h1>
+  <div class="divider"></div>
+  <p class="tagline">
+    O teu guarda-roupa, organizado com IA.<br>
+    Foto → categoria → 5 outfits gerados por ocasião.
+  </p>
+  <div class="badge-soon">Lançamento iminente</div>
+</section>
+
+<section>
+  <h2>O que faz</h2>
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon">📸</div>
+      <div class="feature-title">Foto + IA</div>
+      <div class="feature-desc">Tira foto a uma peça. A app classifica categoria e cor automaticamente.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">✂️</div>
+      <div class="feature-title">Fundo cortado</div>
+      <div class="feature-desc">Removemos o fundo automaticamente. Vês as peças isoladas, prontas a combinar.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">✨</div>
+      <div class="feature-title">5 outfits / ocasião</div>
+      <div class="feature-desc">Casual, trabalho, festa, alternativo… 9 ocasiões, 5 sugestões cada.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">⚓</div>
+      <div class="feature-title">Peça âncora</div>
+      <div class="feature-desc">Escolhe uma peça e gera 5 outfits que a incluam. Útil para aquela peça que adoras.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">↗️</div>
+      <div class="feature-title">Partilha 1080×1350</div>
+      <div class="feature-desc">Imagem pronta para Instagram, TikTok, Stories. Com branding tem.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <div class="feature-title">Privacidade</div>
+      <div class="feature-desc">Fotos só no teu iPhone. Não vendemos nem partilhamos dados.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Quero acesso prioritário</h2>
+  <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+    Estamos em beta TestFlight. Lançamento público iminente.<br>
+    Deixa o teu email para te avisarmos primeiro.
+  </p>
+
+  <form id="leadForm" class="form-card" novalidate>
+    <!-- Honeypot field -->
+    <div class="hp">
+      <input type="text" name="company" tabindex="-1" autocomplete="off">
+    </div>
+
+    <label class="field" for="email">Email *</label>
+    <input type="email" id="email" name="email" required autocomplete="email" placeholder="o-teu@exemplo.com">
+
+    <label class="field" for="firstName">Nome (opcional)</label>
+    <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="Como te tratamos">
+
+    <label class="field">Que plano escolhias?</label>
+    <div class="pricing">
+      <label class="pricing-tile">
+        <input type="radio" name="pricing" value="free_only">
+        <div class="pricing-info">
+          <div class="pricing-price">Só usaria se for grátis</div>
+          <div class="pricing-sub">Sem assinatura, mesmo com features limitadas</div>
+        </div>
+      </label>
+      <label class="pricing-tile">
+        <input type="radio" name="pricing" value="0.99_month">
+        <div class="pricing-info">
+          <div class="pricing-price">€0.99 / mês</div>
+          <div class="pricing-sub">Subscrição mensal acessível</div>
+        </div>
+      </label>
+      <label class="pricing-tile">
+        <input type="radio" name="pricing" value="4.99_year">
+        <div class="pricing-info">
+          <div class="pricing-price">€4.99 / ano</div>
+          <div class="pricing-sub">Anual, equivale a ~€0.42/mês</div>
+        </div>
+      </label>
+      <label class="pricing-tile">
+        <input type="radio" name="pricing" value="19.99_lifetime">
+        <div class="pricing-info">
+          <div class="pricing-price">€19.99 lifetime</div>
+          <div class="pricing-sub">Compra única, para sempre</div>
+        </div>
+      </label>
+    </div>
+
+    <label class="field" for="wardrobeSize">Quantas peças tens no teu guarda-roupa? (opcional)</label>
+    <select id="wardrobeSize" name="wardrobeSize">
+      <option value="">— Prefiro não dizer —</option>
+      <option value="<30">Menos de 30</option>
+      <option value="30-100">30 a 100</option>
+      <option value="100+">Mais de 100</option>
+    </select>
+
+    <label class="field" for="igShare">Partilhas outfits no Instagram / TikTok? (opcional)</label>
+    <select id="igShare" name="igShare">
+      <option value="">— Prefiro não dizer —</option>
+      <option value="yes">Sim, regularmente</option>
+      <option value="sometimes">Às vezes</option>
+      <option value="no">Não</option>
+    </select>
+
+    <div class="consent">
+      <label>
+        <input type="checkbox" name="consent_18plus" required>
+        <span><span class="req">*</span> Confirmo ter 18 anos ou mais</span>
+      </label>
+      <label>
+        <input type="checkbox" name="consent_privacy" required>
+        <span><span class="req">*</span> Aceito a <a href="/privacidade.html" target="_blank">Política de Privacidade Pré-Lançamento</a></span>
+      </label>
+      <label>
+        <input type="checkbox" name="consent_marketing" checked>
+        <span>Aceito receber emails sobre o lançamento e produtos relacionados</span>
+      </label>
+      <label>
+        <input type="checkbox" name="consent_beta" checked>
+        <span>Aceito ser adicionado à lista de beta testers (TestFlight, gratuito)</span>
+      </label>
+    </div>
+
+    <button type="submit" class="btn-primary" id="submitBtn">Quero acesso prioritário →</button>
+    <div id="alertOk" class="alert alert-success">
+      ✓ Recebido. Verifica o teu email — chegou um teste de confirmação.
+    </div>
+    <div id="alertErr" class="alert alert-error"></div>
+  </form>
+</section>
+
+<footer>
+  <a href="/privacidade.html">Política de Privacidade</a>·
+  <a href="https://wardrobe-emanuel.vercel.app/termos.html">Termos de Uso</a>·
+  <a href="mailto:pal@drpal2028.me">pal@drpal2028.me</a>
+  <p style="margin-top: 14px; color: var(--text-tertiary);">Wardrobe.AI · PALCORE · Porto, 2026</p>
+</footer>
+
+</main>
+
+<script>
+const ENDPOINT = 'https://btkdpjlltekssobfzdhu.supabase.co/functions/v1/wardrobe-prelaunch-lead';
+
+const form = document.getElementById('leadForm');
+const btn = document.getElementById('submitBtn');
+const alertOk = document.getElementById('alertOk');
+const alertErr = document.getElementById('alertErr');
+
+// Highlight selected pricing tile
+document.querySelectorAll('input[name="pricing"]').forEach(r => {
+  r.addEventListener('change', () => {
+    document.querySelectorAll('.pricing-tile').forEach(t => t.classList.remove('selected'));
+    r.closest('.pricing-tile').classList.add('selected');
+  });
+});
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  alertOk.style.display = 'none';
+  alertErr.style.display = 'none';
+
+  const data = new FormData(form);
+  const payload = {
+    email: data.get('email'),
+    firstName: data.get('firstName') || null,
+    pricing: data.get('pricing') || null,
+    wardrobeSize: data.get('wardrobeSize') || null,
+    igShare: data.get('igShare') || null,
+    consent_18plus: data.get('consent_18plus') === 'on',
+    consent_privacy: data.get('consent_privacy') === 'on',
+    consent_marketing: data.get('consent_marketing') === 'on',
+    consent_beta: data.get('consent_beta') === 'on',
+    company: data.get('company') || '', // honeypot
+    lang: 'pt',
+  };
+
+  if (!payload.consent_18plus || !payload.consent_privacy) {
+    alertErr.textContent = 'Tens de aceitar ter 18+ e a Política de Privacidade.';
+    alertErr.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'A enviar…';
+
+  try {
+    const r = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const result = await r.json();
+    if (r.ok) {
+      alertOk.style.display = 'block';
+      form.reset();
+      document.querySelectorAll('.pricing-tile').forEach(t => t.classList.remove('selected'));
+    } else {
+      throw new Error(result.error || 'erro_desconhecido');
+    }
+  } catch (err) {
+    alertErr.textContent = 'Não foi possível registar. Tenta de novo daqui a uns minutos.';
+    alertErr.style.display = 'block';
+    console.error(err);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Quero acesso prioritário →';
+  }
+});
+</script>
+
+</body>
+</html>
