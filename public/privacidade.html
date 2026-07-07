@@ -3,135 +3,327 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Política de Privacidade Pré-Lançamento — Wardrobe.AI</title>
+<title>Política de Privacidade — Wardrobe AI</title>
+<meta name="description" content="Política de privacidade da app Wardrobe AI. Dados recolhidos, processadores, direitos do utilizador (RGPD).">
 <style>
-  :root { --bg:#0A0A0A; --panel:#1c1917; --text:#f5f5f4; --muted:#a8a29e; --accent:#D4AF37; --border:#292524; }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; }
-  main { max-width:720px; margin:0 auto; padding:48px 24px 96px; }
-  .lang-switch { display:flex; justify-content:flex-end; font-size:13px; color:var(--muted); margin-bottom:16px; }
-  .lang-switch a { color:var(--muted); text-decoration:none; border-bottom:1px dashed var(--border); }
-  .lang-switch a:hover { color:var(--accent); border-bottom-color:var(--accent); }
-  header { border-bottom:1px solid var(--border); padding-bottom:24px; margin-bottom:32px; }
-  h1 { font-size:28px; font-weight:600; margin:0 0 8px; letter-spacing:-0.02em; }
-  .subtitle { color:var(--muted); font-size:15px; }
-  h2 { font-size:20px; font-weight:600; margin:40px 0 12px; color:var(--accent); letter-spacing:-0.01em; }
-  p, li { font-size:15px; color:var(--text); }
-  ul { padding-left:20px; }
-  li { margin-bottom:6px; }
-  a { color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(212,168,76,0.3); }
-  a:hover { border-bottom-color:var(--accent); }
-  .panel { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:16px 20px; margin:16px 0; }
-  table { width:100%; border-collapse:collapse; margin:16px 0; font-size:14px; }
-  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--border); vertical-align:top; }
-  th { color:var(--muted); font-weight:500; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; }
-  footer { margin-top:64px; padding-top:24px; border-top:1px solid var(--border); color:var(--muted); font-size:13px; }
+  :root {
+    --bg: #0a0a0a;
+    --panel: #1c1917;
+    --text: #f5f5f4;
+    --muted: #a8a29e;
+    --accent: #c9a84c;
+    --border: #292524;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+  .lang-switch {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .lang-switch a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--border);
+  }
+  .lang-switch a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 40px 0 12px;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 24px 0 8px;
+  }
+  p, li {
+    font-size: 15px;
+    color: var(--text);
+  }
+  ul {
+    padding-left: 20px;
+  }
+  li {
+    margin-bottom: 6px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+  }
+  a:hover {
+    border-bottom-color: var(--accent);
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+  footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+  }
+  code {
+    background: var(--panel);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.9em;
+  }
 </style>
 </head>
 <body>
 <main>
-  <div class="lang-switch"><a href="/en/privacy.html">English version →</a></div>
+  <div class="lang-switch">
+    <a href="/en/privacy.html">English version →</a>
+  </div>
+
   <header>
-    <h1>Política de Privacidade Pré-Lançamento</h1>
-    <p class="subtitle">Wardrobe.AI · Atualizada em 9 de maio de 2026</p>
+    <h1>Política de Privacidade</h1>
+    <p class="subtitle">Wardrobe AI · Atualizada em 09 de maio de 2026</p>
   </header>
 
   <p>
-    Esta política descreve como o site <strong>wardrobe.drpal2028.me</strong> trata os dados que recolhe
-    durante o registo na lista de acesso prioritário ao lançamento da app Wardrobe.AI. É distinta da
-    <a href="https://wardrobe-emanuel.vercel.app/privacidade.html" target="_blank">Política de Privacidade da App</a>,
-    que se aplica ao uso da aplicação iOS.
+    Esta política descreve como a aplicação <strong>Wardrobe AI</strong>
+    (doravante, “a App”) trata os dados pessoais dos seus utilizadores. A App é
+    disponibilizada através da Apple App Store. O uso da App está também sujeito
+    aos <a href="/termos.html">Termos de Uso</a>.
   </p>
 
   <div class="panel">
-    <strong>Resumo em três pontos:</strong>
+    <strong>Resumo em quatro pontos:</strong>
     <ul>
-      <li>Recolhemos email e respostas que nos deres voluntariamente, apenas para a fase pré-lançamento.</li>
-      <li>Não usamos cookies, trackers ou analytics. Zero rastreamento.</li>
-      <li>Podes pedir apagamento dos teus dados a qualquer momento por email.</li>
+      <li>A App destina-se exclusivamente a utilizadores com 18 anos ou mais.</li>
+      <li>Recolhemos apenas o que é estritamente necessário para a App funcionar: email para autenticação e fotografias das peças de roupa que escolhes guardar.</li>
+      <li>Não vendemos dados, não fazemos perfis publicitários, não usamos trackers de terceiros.</li>
+      <li>Tens o direito de aceder, corrigir, exportar e apagar tudo o que estiver associado à tua conta.</li>
     </ul>
   </div>
 
   <h2>1. Responsável pelo tratamento</h2>
   <p>
-    <strong>Paulo Branco, Consultoria e Gestão Imobiliária, Unipessoal Lda</strong>, com sede no
-    Porto, Portugal. Contacto para questões de privacidade:
-    <a href="mailto:pal@drpal2028.me">pal@drpal2028.me</a>.
+    O responsável pelo tratamento dos dados é
+    <strong>Paulo Branco, Consultoria e Gestão Imobiliária, Unipessoal Lda</strong>,
+    com sede no Porto, Portugal. Para qualquer questão relacionada com privacidade
+    podes contactar-nos através de <a href="mailto:pal@drpal2028.me">pal@drpal2028.me</a>.
   </p>
 
-  <h2>2. Dados recolhidos</h2>
+  <h2>2. Dados que recolhemos</h2>
+  <p>A App recolhe e processa apenas os seguintes dados pessoais:</p>
   <table>
-    <thead><tr><th>Dado</th><th>Finalidade</th><th>Base legal (RGPD)</th></tr></thead>
+    <thead>
+      <tr>
+        <th>Dado</th>
+        <th>Finalidade</th>
+        <th>Base legal (RGPD)</th>
+      </tr>
+    </thead>
     <tbody>
-      <tr><td>Email</td><td>Notificação de lançamento e (opcional) marketing</td><td>Consentimento (art. 6.º n.º 1 a)</td></tr>
-      <tr><td>Nome próprio (opcional)</td><td>Personalização da comunicação</td><td>Consentimento (art. 6.º n.º 1 a)</td></tr>
-      <tr><td>Confirmação de idade 18+</td><td>Cumprir restrição contratual da App Wardrobe.AI</td><td>Obrigação legal/contratual</td></tr>
-      <tr><td>Plano que escolherias (opcional)</td><td>Estudo de mercado pré-lançamento (smoke test)</td><td>Consentimento (art. 6.º n.º 1 a)</td></tr>
-      <tr><td>Tamanho do guarda-roupa, partilha em redes (opcional)</td><td>Segmentação para mensagens relevantes</td><td>Consentimento (art. 6.º n.º 1 a)</td></tr>
-      <tr><td>País aproximado (via cabeçalho do servidor)</td><td>Estatísticas agregadas — nunca individualmente</td><td>Interesse legítimo (art. 6.º n.º 1 f)</td></tr>
-      <tr><td>Tipo de dispositivo resumido (ex: iOS, Android)</td><td>Estatísticas agregadas</td><td>Interesse legítimo (art. 6.º n.º 1 f)</td></tr>
+      <tr>
+        <td>Endereço de email</td>
+        <td>Autenticação e identificação da conta</td>
+        <td>Execução do contrato (art. 6.º, n.º 1, b)</td>
+      </tr>
+      <tr>
+        <td>Fotografias de peças de roupa que carregas</td>
+        <td>Guardar e organizar o teu guarda-roupa digital, gerar sugestões de outfits</td>
+        <td>Execução do contrato (art. 6.º, n.º 1, b)</td>
+      </tr>
+      <tr>
+        <td>Identificador de utilizador (UUID interno)</td>
+        <td>Associar peças à tua conta de forma anonimizada</td>
+        <td>Execução do contrato (art. 6.º, n.º 1, b)</td>
+      </tr>
+      <tr>
+        <td>Logs técnicos mínimos (timestamps, erros)</td>
+        <td>Manter o serviço operacional e diagnosticar problemas</td>
+        <td>Interesse legítimo (art. 6.º, n.º 1, f)</td>
+      </tr>
     </tbody>
   </table>
   <p>
-    <strong>Não recolhemos:</strong> IP completo, fingerprint do navegador, localização precisa, cookies,
-    dados sensíveis (saúde, biometria, orientação política, etc.).
+    <strong>Não recolhemos:</strong> localização, contactos, dados biométricos, dados de saúde,
+    histórico de navegação, identificadores publicitários, nem qualquer informação que não esteja
+    listada acima.
   </p>
 
-  <h2>3. Subprocessadores</h2>
+  <h2>3. Quem processa os teus dados (subprocessadores)</h2>
+  <p>
+    Para fornecer a App utilizamos serviços técnicos de terceiros, todos com Data Processing
+    Agreements (DPAs) e infraestrutura conforme com o RGPD:
+  </p>
   <table>
-    <thead><tr><th>Serviço</th><th>Função</th><th>Localização</th></tr></thead>
+    <thead>
+      <tr>
+        <th>Serviço</th>
+        <th>Função</th>
+        <th>Localização</th>
+      </tr>
+    </thead>
     <tbody>
-      <tr><td><a href="https://supabase.com/privacy" target="_blank">Supabase</a></td><td>Armazenamento da tua entrada na lista (registos, consentimentos)</td><td>União Europeia (Frankfurt)</td></tr>
-      <tr><td><a href="https://resend.com/legal/privacy-policy" target="_blank">Resend</a></td><td>Envio do email de confirmação e (se autorizado) marketing</td><td>União Europeia</td></tr>
-      <tr><td><a href="https://vercel.com/legal/privacy-policy" target="_blank">Vercel</a></td><td>Alojamento desta página estática</td><td>Distribuição global (CDN)</td></tr>
-      <tr><td><a href="https://www.cloudflare.com/privacypolicy/" target="_blank">Cloudflare</a></td><td>DNS do domínio drpal2028.me</td><td>Distribuição global</td></tr>
+      <tr>
+        <td><a href="https://supabase.com/privacy" target="_blank">Supabase</a></td>
+        <td>Autenticação por email (código OTP); processamento das imagens via Edge Functions; registo mínimo de utilização para limitação de tráfego</td>
+        <td>União Europeia (Frankfurt)</td>
+      </tr>
+      <tr>
+        <td><a href="https://www.anthropic.com/legal/privacy" target="_blank">Anthropic (Claude API)</a></td>
+        <td>Classificação automática das peças (categoria, cor) e geração de sugestões de outfits por inteligência artificial</td>
+        <td>EUA — transferência sob Cláusulas Contratuais Tipo</td>
+      </tr>
+      <tr>
+        <td><a href="https://replicate.com/privacy" target="_blank">Replicate</a></td>
+        <td>Remoção automática de fundos das fotografias (modelo de IA)</td>
+        <td>EUA — transferência sob Cláusulas Contratuais Tipo</td>
+      </tr>
+      <tr>
+        <td><a href="https://vercel.com/legal/privacy-policy" target="_blank">Vercel</a></td>
+        <td>Alojamento de páginas estáticas (esta política, termos e ferramentas internas)</td>
+        <td>Distribuição global (CDN)</td>
+      </tr>
+      <tr>
+        <td><a href="https://www.apple.com/legal/privacy/" target="_blank">Apple</a></td>
+        <td>Distribuição da App via App Store</td>
+        <td>Conforme Apple Privacy Policy</td>
+      </tr>
     </tbody>
   </table>
+  <p>
+    As fotografias enviadas para classificação ou remoção de fundo são transmitidas via URL pública
+    temporária e não são utilizadas pelos modelos para treino. Não partilhamos os teus dados com
+    nenhum terceiro fora desta lista.
+  </p>
 
-  <h2>4. Conservação</h2>
+  <h2>4. Conservação dos dados</h2>
   <ul>
-    <li>Os teus dados são conservados por <strong>12 meses</strong> a partir do registo, ou até retirares consentimento — o que ocorrer primeiro.</li>
-    <li>Após esse prazo são apagados automaticamente.</li>
-    <li>Se o lançamento da app ocorrer dentro deste período e tiveres consentido, podes ser migrado para a lista de utilizadores da app — mas isso será com novo consentimento.</li>
+    <li>O teu email e identificador de utilizador são conservados enquanto a conta existir.</li>
+    <li><strong>As fotografias permanecem armazenadas exclusivamente no teu iPhone.</strong> Quando geras um outfit ou removes o fundo de uma peça, as imagens são transmitidas para os serviços de IA referidos na secção 3 e descartadas após processamento — não são armazenadas nos nossos servidores.</li>
+    <li>Se apagares a tua conta, todos os dados pessoais associados (email, identificador, registos de utilização) são eliminados num prazo máximo de 30 dias. As fotografias e demais dados locais no teu iPhone são apagados ao desinstalar a App.</li>
+    <li>Registos técnicos mínimos (timestamps + identificador da função usada para limitação de tráfego) são conservados no máximo 90 dias.</li>
+    <li>Não conservamos backups dos teus dados após eliminação da conta.</li>
   </ul>
 
   <h2>5. Os teus direitos (RGPD)</h2>
+  <p>Como utilizador residente na União Europeia, tens os seguintes direitos:</p>
   <ul>
     <li><strong>Acesso</strong> — saber que dados temos sobre ti.</li>
     <li><strong>Retificação</strong> — corrigir dados incorretos.</li>
     <li><strong>Apagamento ("direito a ser esquecido")</strong> — pedir a eliminação de todos os dados.</li>
-    <li><strong>Portabilidade</strong> — receber os teus dados em formato estruturado (JSON).</li>
+    <li><strong>Portabilidade</strong> — receber os teus dados em formato estruturado e legível por máquina (JSON).</li>
+    <li><strong>Limitação</strong> — restringir o processamento em casos específicos.</li>
     <li><strong>Oposição</strong> — opor-te ao processamento baseado em interesse legítimo.</li>
-    <li><strong>Retirada do consentimento</strong> — a qualquer momento, basta responder "unsubscribe" a um email ou contactar-nos.</li>
-    <li><strong>Reclamação</strong> — apresentar queixa à <a href="https://www.cnpd.pt" target="_blank">CNPD</a>.</li>
+    <li><strong>Reclamação</strong> — apresentar queixa à Comissão Nacional de Proteção de Dados (CNPD): <a href="https://www.cnpd.pt" target="_blank">cnpd.pt</a></li>
   </ul>
   <p>
-    Para exercer qualquer destes direitos:
-    <a href="mailto:pal@drpal2028.me">pal@drpal2028.me</a>. Respondemos em 30 dias ou menos.
+    Para exercer qualquer destes direitos, envia um email para
+    <a href="mailto:pal@drpal2028.me">pal@drpal2028.me</a>.
+    Respondemos em 30 dias ou menos.
   </p>
 
-  <h2>6. Cookies e rastreamento</h2>
+  <h2>6. Segurança</h2>
+  <ul>
+    <li>Todas as comunicações são cifradas com TLS (HTTPS).</li>
+    <li>As fotografias são guardadas em buckets privados Supabase com Row Level Security (RLS) — só a tua conta tem acesso aos teus ficheiros.</li>
+    <li>As palavras-passe nunca são guardadas em texto simples (são hash via Supabase Auth).</li>
+    <li>Comunicamos qualquer violação grave de dados em 72 horas, conforme art. 33.º do RGPD.</li>
+  </ul>
+
+  <h2>7. Idade mínima — exclusivamente maiores de 18 anos</h2>
   <p>
-    Esta página <strong>não usa cookies, analytics, pixels de rastreamento, fontes externas ou
-    quaisquer trackers</strong>. Podes navegá-la com o teu bloqueador de privacidade preferido sem
-    quebrar nada.
+    A Wardrobe AI destina-se <strong>exclusivamente a utilizadores com 18 anos ou mais</strong>.
+    Esta restrição é contratual e visa garantir conformidade plena com:
+  </p>
+  <ul>
+    <li>Regulamento Geral de Proteção de Dados (RGPD, Regulamento (UE) 2016/679, art. 8.º) e legislação nacional dos Estados-Membros que reduza a idade de consentimento autónomo (incluindo a Lei n.º 58/2019 portuguesa);</li>
+    <li>UK Data Protection Act 2018 e UK GDPR;</li>
+    <li>Children's Online Privacy Protection Act dos EUA (COPPA);</li>
+    <li>California Consumer Privacy Act (CCPA / CPRA) e regimes equivalentes de outros estados norte-americanos;</li>
+    <li>Lei Geral de Proteção de Dados do Brasil (LGPD);</li>
+    <li>Loi 25 do Quebec e legislação equivalente noutras jurisdições.</li>
+  </ul>
+  <p>
+    Ao criar uma conta, declaras ter pelo menos 18 anos. A idade é validada no momento do registo.
+    Não recolhemos, processamos ou armazenamos intencionalmente dados de menores de 18 anos.
+    Se tomarmos conhecimento de uma conta criada por um menor, a conta é eliminada de imediato e
+    todos os dados associados são apagados nos termos da secção 4.
+  </p>
+  <p>
+    Encarregados de educação que suspeitem que um menor sob a sua tutela criou uma conta podem
+    contactar-nos em <a href="mailto:pal@drpal2028.me">pal@drpal2028.me</a> para imediata
+    eliminação.
   </p>
 
-  <h2>7. Idade mínima</h2>
+  <h2>8. Alterações a esta política</h2>
   <p>
-    Esta lista destina-se exclusivamente a maiores de 18 anos. Não recolhemos intencionalmente dados
-    de menores. Se tomarmos conhecimento de um registo por um menor, eliminamos imediatamente.
-  </p>
-
-  <h2>8. Alterações</h2>
-  <p>
-    Esta política pode ser atualizada para refletir alterações legais ou da estrutura do site. A
-    versão em vigor está sempre acessível neste URL. Alterações materiais serão notificadas por
-    email a quem tiver consentido marketing.
+    Esta política pode ser atualizada para refletir alterações legais ou da App. A versão em vigor
+    está sempre acessível neste URL. Alterações materiais (por exemplo, novos subprocessadores)
+    serão comunicadas dentro da própria App antes de produzirem efeitos.
   </p>
 
   <h2>9. Contacto</h2>
   <p>
+    Qualquer dúvida ou pedido relacionado com privacidade:<br>
     <strong>Paulo Branco, Consultoria e Gestão Imobiliária, Unipessoal Lda</strong><br>
     Email: <a href="mailto:pal@drpal2028.me">pal@drpal2028.me</a><br>
     Localização: Porto, Portugal
@@ -139,9 +331,8 @@
 
   <footer>
     <p>
-      Wardrobe.AI Pré-Lançamento · Última atualização: 09/05/2026<br>
-      <a href="/">← Voltar à landing</a> ·
-      <a href="https://wardrobe-emanuel.vercel.app/privacidade.html">Política de Privacidade da App</a>
+      Wardrobe AI · Versão 1.0.1 · Última atualização: 09/05/2026<br>
+      <a href="/termos.html">Termos de Uso</a> · <a href="/en/privacy.html">English version</a>
     </p>
   </footer>
 </main>
