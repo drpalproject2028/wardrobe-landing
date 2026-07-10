@@ -121,24 +121,14 @@
   }
   .mark-w {
     display: block;
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 600;
-    font-size: clamp(190px, 46vw, 300px);
-    line-height: 1;
-    letter-spacing: -0.05em;
-    background: linear-gradient(160deg, #f6e6a8 6%, #d4af37 36%, #8a6d1f 52%, #ecca6d 74%, #a9862a 100%);
-    background-size: 220% 220%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    filter: drop-shadow(0 16px 40px rgba(212, 175, 55, 0.30));
+    width: clamp(230px, 54vw, 340px);
+    height: auto;
+    filter: drop-shadow(0 14px 38px rgba(212, 175, 55, 0.4));
     animation: w-breathe 7s ease-in-out infinite;
   }
   @keyframes w-breathe {
-    0%, 100% { background-position: 0% 0%; }
-    50% { background-position: 100% 100%; }
+    0%, 100% { filter: drop-shadow(0 14px 38px rgba(212, 175, 55, 0.34)); }
+    50% { filter: drop-shadow(0 14px 50px rgba(212, 175, 55, 0.6)); }
   }
   @keyframes w-spin {
     0%   { transform: rotateY(0deg) scale(1); }
@@ -344,6 +334,79 @@
     max-width: 440px;
   }
 
+  /* ——— Galeria de mockups ——— */
+  .shots {
+    display: flex;
+    gap: 22px;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+  .phone {
+    position: relative;
+    width: 220px;
+    max-width: 62vw;
+    border-radius: 40px;
+    padding: 9px;
+    background: linear-gradient(155deg, #2a2622, #0d0b0a);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.14), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s;
+  }
+  .phone:nth-child(1) { transform: rotate(-4deg) translateY(10px); }
+  .phone:nth-child(3) { transform: rotate(4deg) translateY(10px); }
+  .phone:nth-child(2) { transform: translateY(-8px) scale(1.04); z-index: 2; }
+  .shots:hover .phone { transform: none; }
+  .shots:hover .phone:nth-child(2) { transform: scale(1.02); }
+  .phone img {
+    display: block;
+    width: 100%;
+    border-radius: 32px;
+  }
+  .phone figcaption {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(10, 9, 8, 0.82);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 5px 12px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+  }
+  @media (max-width: 620px) {
+    .shots { gap: 10px; }
+    .phone:nth-child(1), .phone:nth-child(3) { transform: none; }
+    .phone:nth-child(2) { transform: none; }
+    .phone { width: 200px; }
+  }
+
+  .share-showcase {
+    margin: 44px auto 0;
+    max-width: 460px;
+    text-align: center;
+  }
+  .share-showcase img {
+    display: block;
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.1);
+  }
+  .share-showcase figcaption {
+    margin-top: 16px;
+    color: var(--text-secondary);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 15px;
+    line-height: 22px;
+  }
+
   label.field {
     display: block;
     font-size: 11px;
@@ -524,7 +587,7 @@
 <section class="hero">
   <div class="mark-stage" id="markStage" role="img" aria-label="Wardrobe.AI">
     <div class="mark-tilt" id="markTilt">
-      <span class="mark-w" aria-hidden="true">W</span>
+      <img src="/logo-w.png" class="mark-w" alt="" draggable="false">
     </div>
   </div>
   <p class="kicker">Guarda-roupa · Curadoria por IA</p>
@@ -591,6 +654,30 @@
       </div>
     </article>
   </div>
+</section>
+
+<section>
+  <p class="section-label">Por dentro</p>
+  <h2 class="section-title">Da fotografia ao look partilhável</h2>
+  <div class="shots">
+    <figure class="phone">
+      <img src="/mockups/wardrobe.png" alt="Ecrã do guarda-roupa organizado por IA" loading="lazy">
+      <figcaption>Organiza</figcaption>
+    </figure>
+    <figure class="phone">
+      <img src="/mockups/generate.png" alt="Ecrã de geração de outfit com selectores de ocasião e estilo" loading="lazy">
+      <figcaption>A IA veste-te</figcaption>
+    </figure>
+    <figure class="phone">
+      <img src="/mockups/narrative.png" alt="Ecrã de personalização que ensina os teus gostos à IA" loading="lazy">
+      <figcaption>Aprende contigo</figcaption>
+    </figure>
+  </div>
+
+  <figure class="share-showcase">
+    <img src="/mockups/share.png" alt="Cartão editorial de partilha em formato Story" loading="lazy">
+    <figcaption>Cada look vira um cartão editorial, pronto a partilhar em Story.</figcaption>
+  </figure>
 </section>
 
 <section>
