@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
 <style>
   :root {
     --bg: #0a0908;
@@ -81,51 +82,95 @@
   /* Hero */
   .hero { text-align: center; margin-bottom: 76px; }
 
-  .mark-frame {
+  /* ——— O W: palco 3D, tilt ao cursor, explosão ao clique ——— */
+  .mark-stage {
     position: relative;
-    width: 132px;
-    height: 132px;
-    margin: 0 auto 30px;
+    width: 272px;
+    height: 272px;
+    margin: 0 auto 38px;
     display: grid;
     place-items: center;
+    perspective: 640px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
   }
-  .mark-frame::before {
+  .mark-stage::before {
     content: '';
     position: absolute;
-    inset: -16px;
+    inset: -6px;
     border-radius: 50%;
     background: conic-gradient(from 0deg, transparent 0deg, var(--accent) 90deg, transparent 160deg, transparent 200deg, var(--accent-bright) 300deg, transparent 360deg);
-    opacity: 0.6;
-    filter: blur(3px);
-    animation: mark-spin 10s linear infinite;
+    opacity: 0.55;
+    filter: blur(4px);
+    animation: mark-spin 11s linear infinite;
   }
-  .mark-frame::after {
+  .mark-stage::after {
     content: '';
     position: absolute;
-    inset: -34px;
+    inset: -40px;
     border-radius: 50%;
     background: radial-gradient(circle, var(--accent-soft), transparent 72%);
-    filter: blur(14px);
+    filter: blur(16px);
     z-index: -1;
   }
   @keyframes mark-spin { to { transform: rotate(360deg); } }
-  @media (prefers-reduced-motion: reduce) {
-    .mark-frame::before { animation: none; }
-  }
 
-  .mark {
+  .mark-tilt {
     position: relative;
-    width: 88px;
-    height: 88px;
-    border-radius: 22px;
-    box-shadow: 0 10px 34px rgba(212, 175, 55, 0.22), 0 0 0 1px rgba(212, 175, 55, 0.35);
-    transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s;
-    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1);
+    will-change: transform;
   }
-  .mark-frame:hover .mark,
-  .mark-frame:active .mark {
-    transform: scale(1.07) rotate(-2deg);
-    box-shadow: 0 16px 46px rgba(212, 175, 55, 0.38), 0 0 0 1px rgba(212, 175, 55, 0.55);
+  .mark {
+    display: block;
+    width: 190px;
+    height: 190px;
+    border-radius: 44px;
+    box-shadow: 0 14px 44px rgba(212, 175, 55, 0.26), 0 0 0 1px rgba(212, 175, 55, 0.4);
+    transition: box-shadow .4s;
+    pointer-events: none;
+  }
+  .mark-stage:hover .mark {
+    box-shadow: 0 20px 58px rgba(212, 175, 55, 0.42), 0 0 0 1px rgba(212, 175, 55, 0.6);
+  }
+  @keyframes mark-pop {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(1.18) rotate(-3deg); }
+    60%  { transform: scale(0.94) rotate(1.5deg); }
+    100% { transform: scale(1); }
+  }
+  .mark-tilt.popping { animation: mark-pop .6s cubic-bezier(.34,1.56,.64,1); }
+
+  .spark {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    background: var(--accent-bright);
+    box-shadow: 0 0 10px var(--accent);
+    pointer-events: none;
+    animation: spark-fly .85s cubic-bezier(.16,.84,.44,1) forwards;
+  }
+  @keyframes spark-fly {
+    from { opacity: 1; transform: translate(-50%, -50%) translate(0, 0) scale(1); }
+    to   { opacity: 0; transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(.15); }
+  }
+  .burst-ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 214px;
+    height: 214px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent);
+    pointer-events: none;
+    animation: ring-out .9s ease-out forwards;
+  }
+  @keyframes ring-out {
+    from { opacity: .85; transform: translate(-50%, -50%) scale(.4); }
+    to   { opacity: 0;   transform: translate(-50%, -50%) scale(2.4); }
   }
 
   .kicker {
@@ -143,7 +188,21 @@
     letter-spacing: -1.5px;
     line-height: 1.05;
   }
-  .wordmark .dot { color: var(--accent); font-style: italic; font-weight: 400; }
+  .wordmark .dot {
+    font-style: italic;
+    font-weight: 400;
+    background: linear-gradient(100deg, #a8842a 20%, #f2dc8f 42%, #d4af37 55%, #a8842a 80%);
+    background-size: 240% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: gold-sheen 6s ease-in-out infinite;
+  }
+  @keyframes gold-sheen {
+    0%, 100% { background-position: 0% 0; }
+    50% { background-position: 100% 0; }
+  }
   .divider {
     width: 44px;
     height: 1px;
@@ -255,12 +314,10 @@
   .beta-panel::before {
     content: '';
     position: absolute;
-    top: -60%;
-    right: -20%;
-    width: 60%;
-    height: 220%;
-    background: radial-gradient(circle, var(--accent-soft), transparent 70%);
+    inset: 0;
+    background: radial-gradient(460px circle at var(--mx, 82%) var(--my, -10%), rgba(212, 175, 55, 0.13), transparent 68%);
     pointer-events: none;
+    transition: opacity .4s;
   }
   .beta-panel > * { position: relative; z-index: 1; }
   .beta-panel .section-title { margin-bottom: 14px; }
@@ -382,6 +439,44 @@
   }
   footer a:hover { color: var(--accent); border-color: var(--accent); }
 
+  /* ——— Sequência de entrada do hero ——— */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .hero > * { animation: rise .9s cubic-bezier(.22,.68,.26,1) both; }
+  .hero > :nth-child(1) { animation-delay: .05s; }
+  .hero > :nth-child(2) { animation-delay: .3s; }
+  .hero > :nth-child(3) { animation-delay: .42s; }
+  .hero > :nth-child(4) { animation-delay: .54s; }
+  .hero > :nth-child(5) { animation-delay: .66s; }
+  .hero > :nth-child(6) { animation-delay: .8s; }
+
+  /* ——— Reveals ao scroll (só com JS activo; sem JS tudo fica visível) ——— */
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .75s ease, transform .75s cubic-bezier(.22,.68,.26,1);
+    transition-delay: var(--d, 0ms);
+  }
+  html.js .reveal.in-view { opacity: 1; transform: none; }
+
+  /* ——— Brilho varrido no botão ——— */
+  .btn-primary { position: relative; overflow: hidden; }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -70%;
+    width: 44%;
+    height: 100%;
+    background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: skewX(-20deg);
+    transition: left .65s ease;
+    pointer-events: none;
+  }
+  .btn-primary:hover::after { left: 130%; }
+
   @media (max-width: 480px) {
     .wordmark { font-size: 44px; }
     main { padding: 48px 18px 72px; }
@@ -389,6 +484,18 @@
     .index-item { gap: 16px; }
     .index-num { font-size: 19px; min-width: 28px; }
     .beta-panel { padding: 30px 20px; }
+    .mark-stage { width: 216px; height: 216px; }
+    .mark { width: 150px; height: 150px; border-radius: 36px; }
+    .burst-ring { width: 170px; height: 170px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mark-stage::before { animation: none; }
+    .hero > * { animation: none; }
+    html.js .reveal { opacity: 1; transform: none; transition: none; }
+    .wordmark .dot { animation: none; }
+    .btn-primary::after { display: none; }
+    .mark-tilt { transition: none; }
   }
 </style>
 </head>
@@ -401,8 +508,10 @@
 </div>
 
 <section class="hero">
-  <div class="mark-frame">
-    <img src="/icon.png" alt="Wardrobe.AI" class="mark">
+  <div class="mark-stage" id="markStage" role="img" aria-label="Wardrobe.AI">
+    <div class="mark-tilt" id="markTilt">
+      <img src="/icon.png" alt="" class="mark" draggable="false">
+    </div>
   </div>
   <p class="kicker">Guarda-roupa · Curadoria por IA</p>
   <h1 class="wordmark">Wardrobe<span class="dot">.AI</span></h1>
@@ -597,6 +706,92 @@ form.addEventListener('submit', async (e) => {
     btn.textContent = 'Quero testar →';
   }
 });
+</script>
+
+<script>
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ——— Reveals ao scroll ———
+  if (!reduced && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.classList.add('in-view');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('section > .section-label, section > .section-title, .index-item, .beta-panel').forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.setProperty('--d', `${(i % 5) * 70}ms`);
+      io.observe(el);
+    });
+  }
+
+  // ——— Parallax do hero (recua e esvai-se ao scroll) ———
+  const hero = document.querySelector('.hero');
+  if (!reduced && hero) {
+    let ticking = false;
+    addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        hero.style.transform = `translateY(${Math.min(y * 0.22, 120)}px)`;
+        hero.style.opacity = Math.max(1 - y / 620, 0);
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+
+  // ——— O W: tilt 3D ao cursor + explosão dourada ao clique ———
+  const stage = document.getElementById('markStage');
+  const tilt = document.getElementById('markTilt');
+  if (stage && tilt) {
+    if (!reduced) {
+      stage.addEventListener('pointermove', (e) => {
+        const r = stage.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        tilt.style.transform = `rotateY(${x * 24}deg) rotateX(${-y * 24}deg)`;
+      });
+      stage.addEventListener('pointerleave', () => { tilt.style.transform = ''; });
+    }
+    stage.addEventListener('click', () => {
+      tilt.classList.remove('popping');
+      void tilt.offsetWidth;
+      tilt.classList.add('popping');
+      if (reduced) return;
+      const ring = document.createElement('span');
+      ring.className = 'burst-ring';
+      stage.appendChild(ring);
+      setTimeout(() => ring.remove(), 950);
+      for (let i = 0; i < 18; i++) {
+        const s = document.createElement('span');
+        s.className = 'spark';
+        const a = Math.random() * Math.PI * 2;
+        const d = 80 + Math.random() * 110;
+        s.style.setProperty('--tx', `${Math.cos(a) * d}px`);
+        s.style.setProperty('--ty', `${Math.sin(a) * d}px`);
+        const sz = 3 + Math.random() * 6;
+        s.style.width = s.style.height = `${sz}px`;
+        stage.appendChild(s);
+        setTimeout(() => s.remove(), 900);
+      }
+    });
+  }
+
+  // ——— Spotlight do painel da beta segue o cursor ———
+  const panel = document.querySelector('.beta-panel');
+  if (!reduced && panel) {
+    panel.addEventListener('pointermove', (e) => {
+      const r = panel.getBoundingClientRect();
+      panel.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      panel.style.setProperty('--my', `${e.clientY - r.top}px`);
+    });
+  }
+})();
 </script>
 
 </body>
