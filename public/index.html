@@ -82,15 +82,15 @@
   /* Hero */
   .hero { text-align: center; margin-bottom: 76px; }
 
-  /* ——— O W: palco 3D, tilt ao cursor, explosão ao clique ——— */
+  /* ——— O W tipográfico: monumental, ouro líquido, tilt 3D, explosão ao clique ——— */
   .mark-stage {
     position: relative;
-    width: 272px;
-    height: 272px;
-    margin: 0 auto 38px;
+    width: min(92vw, 460px);
+    height: clamp(250px, 60vw, 360px);
+    margin: 0 auto 14px;
     display: grid;
     place-items: center;
-    perspective: 640px;
+    perspective: 900px;
     cursor: pointer;
     -webkit-user-select: none;
     user-select: none;
@@ -99,78 +99,93 @@
   .mark-stage::before {
     content: '';
     position: absolute;
-    inset: -6px;
+    width: clamp(240px, 58vw, 340px);
+    aspect-ratio: 1;
     border-radius: 50%;
-    background: conic-gradient(from 0deg, transparent 0deg, var(--accent) 90deg, transparent 160deg, transparent 200deg, var(--accent-bright) 300deg, transparent 360deg);
-    opacity: 0.55;
-    filter: blur(4px);
-    animation: mark-spin 11s linear infinite;
+    border: 1px solid rgba(212, 175, 55, 0.32);
+    box-shadow: 0 0 0 28px rgba(212, 175, 55, 0.05), inset 0 0 80px rgba(212, 175, 55, 0.06);
   }
   .mark-stage::after {
     content: '';
     position: absolute;
-    inset: -40px;
+    inset: 8%;
     border-radius: 50%;
-    background: radial-gradient(circle, var(--accent-soft), transparent 72%);
-    filter: blur(16px);
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.09), transparent 60%);
     z-index: -1;
   }
-  @keyframes mark-spin { to { transform: rotate(360deg); } }
-
   .mark-tilt {
     position: relative;
     transform-style: preserve-3d;
     transition: transform .35s cubic-bezier(.2,.8,.2,1);
     will-change: transform;
   }
-  .mark {
+  .mark-w {
     display: block;
-    width: 190px;
-    height: 190px;
-    border-radius: 44px;
-    box-shadow: 0 14px 44px rgba(212, 175, 55, 0.26), 0 0 0 1px rgba(212, 175, 55, 0.4);
-    transition: box-shadow .4s;
-    pointer-events: none;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(190px, 46vw, 300px);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    background: linear-gradient(160deg, #f6e6a8 6%, #d4af37 36%, #8a6d1f 52%, #ecca6d 74%, #a9862a 100%);
+    background-size: 220% 220%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 16px 40px rgba(212, 175, 55, 0.30));
+    animation: w-breathe 7s ease-in-out infinite;
   }
-  .mark-stage:hover .mark {
-    box-shadow: 0 20px 58px rgba(212, 175, 55, 0.42), 0 0 0 1px rgba(212, 175, 55, 0.6);
+  @keyframes w-breathe {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
   }
-  @keyframes mark-pop {
-    0%   { transform: scale(1); }
-    30%  { transform: scale(1.18) rotate(-3deg); }
-    60%  { transform: scale(0.94) rotate(1.5deg); }
-    100% { transform: scale(1); }
+  @keyframes w-spin {
+    0%   { transform: rotateY(0deg) scale(1); }
+    35%  { transform: rotateY(210deg) scale(1.08); }
+    70%  { transform: rotateY(342deg) scale(0.97); }
+    100% { transform: rotateY(360deg) scale(1); }
   }
-  .mark-tilt.popping { animation: mark-pop .6s cubic-bezier(.34,1.56,.64,1); }
+  .mark-tilt.spinning { animation: w-spin .9s cubic-bezier(.3,.7,.25,1); }
+  @keyframes hero-shake {
+    0%, 100% { translate: 0 0; }
+    20% { translate: 3px -2px; }
+    40% { translate: -3px 2px; }
+    60% { translate: 2px 1px; }
+    80% { translate: -2px -1px; }
+  }
+  .hero.shaking { animation: hero-shake .3s linear; }
 
-  .spark {
+  .sparkle {
     position: absolute;
     left: 50%;
     top: 50%;
-    border-radius: 50%;
-    background: var(--accent-bright);
-    box-shadow: 0 0 10px var(--accent);
+    font-size: var(--s, 16px);
+    line-height: 1;
+    color: var(--c, #e8c766);
+    text-shadow: 0 0 14px rgba(212, 175, 55, 0.9);
     pointer-events: none;
-    animation: spark-fly .85s cubic-bezier(.16,.84,.44,1) forwards;
+    animation: sparkle-fly .95s cubic-bezier(.15,.85,.4,1) forwards;
   }
-  @keyframes spark-fly {
-    from { opacity: 1; transform: translate(-50%, -50%) translate(0, 0) scale(1); }
-    to   { opacity: 0; transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(.15); }
+  @keyframes sparkle-fly {
+    0%   { opacity: 0; transform: translate(-50%, -50%) rotate(0deg) scale(.4); }
+    12%  { opacity: 1; }
+    100% { opacity: 0; transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(1); }
   }
   .burst-ring {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 214px;
-    height: 214px;
+    width: clamp(250px, 58vw, 350px);
+    aspect-ratio: 1;
     border-radius: 50%;
-    border: 1.5px solid var(--accent);
+    border: 2px solid var(--accent);
     pointer-events: none;
-    animation: ring-out .9s ease-out forwards;
+    animation: ring-out .85s ease-out forwards;
   }
   @keyframes ring-out {
-    from { opacity: .85; transform: translate(-50%, -50%) scale(.4); }
-    to   { opacity: 0;   transform: translate(-50%, -50%) scale(2.4); }
+    from { opacity: .9; transform: translate(-50%, -50%) scale(.5); }
+    to   { opacity: 0; transform: translate(-50%, -50%) scale(1.9); }
   }
 
   .kicker {
@@ -484,13 +499,12 @@
     .index-item { gap: 16px; }
     .index-num { font-size: 19px; min-width: 28px; }
     .beta-panel { padding: 30px 20px; }
-    .mark-stage { width: 216px; height: 216px; }
-    .mark { width: 150px; height: 150px; border-radius: 36px; }
-    .burst-ring { width: 170px; height: 170px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .mark-stage::before { animation: none; }
+    .mark-w { animation: none; }
+    .mark-tilt.spinning { animation: none; }
+    .hero.shaking { animation: none; }
     .hero > * { animation: none; }
     html.js .reveal { opacity: 1; transform: none; transition: none; }
     .wordmark .dot { animation: none; }
@@ -510,7 +524,7 @@
 <section class="hero">
   <div class="mark-stage" id="markStage" role="img" aria-label="Wardrobe.AI">
     <div class="mark-tilt" id="markTilt">
-      <img src="/icon.png" alt="" class="mark" draggable="false">
+      <span class="mark-w" aria-hidden="true">W</span>
     </div>
   </div>
   <p class="kicker">Guarda-roupa · Curadoria por IA</p>
@@ -758,26 +772,37 @@ form.addEventListener('submit', async (e) => {
       });
       stage.addEventListener('pointerleave', () => { tilt.style.transform = ''; });
     }
+    const GOLD = ['#f6e6a8', '#ecca6d', '#d4af37', '#fff3cf'];
+    const GLYPHS = ['✦', '✧', '❋', '·'];
     stage.addEventListener('click', () => {
-      tilt.classList.remove('popping');
+      tilt.classList.remove('spinning');
       void tilt.offsetWidth;
-      tilt.classList.add('popping');
+      tilt.classList.add('spinning');
       if (reduced) return;
-      const ring = document.createElement('span');
-      ring.className = 'burst-ring';
-      stage.appendChild(ring);
-      setTimeout(() => ring.remove(), 950);
-      for (let i = 0; i < 18; i++) {
+      if (hero) {
+        hero.classList.remove('shaking');
+        void hero.offsetWidth;
+        hero.classList.add('shaking');
+      }
+      [0, 130].forEach((delay) => setTimeout(() => {
+        const ring = document.createElement('span');
+        ring.className = 'burst-ring';
+        stage.appendChild(ring);
+        setTimeout(() => ring.remove(), 900);
+      }, delay));
+      for (let i = 0; i < 26; i++) {
         const s = document.createElement('span');
-        s.className = 'spark';
+        s.className = 'sparkle';
+        s.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
         const a = Math.random() * Math.PI * 2;
-        const d = 80 + Math.random() * 110;
+        const d = 110 + Math.random() * 160;
         s.style.setProperty('--tx', `${Math.cos(a) * d}px`);
         s.style.setProperty('--ty', `${Math.sin(a) * d}px`);
-        const sz = 3 + Math.random() * 6;
-        s.style.width = s.style.height = `${sz}px`;
+        s.style.setProperty('--rot', `${(Math.random() * 360 - 180).toFixed(0)}deg`);
+        s.style.setProperty('--s', `${11 + Math.random() * 18}px`);
+        s.style.setProperty('--c', GOLD[Math.floor(Math.random() * GOLD.length)]);
         stage.appendChild(s);
-        setTimeout(() => s.remove(), 900);
+        setTimeout(() => s.remove(), 1000);
       }
     });
   }
