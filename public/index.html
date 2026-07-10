@@ -149,36 +149,6 @@
   /* Honeypot — invisible to humans, traps bots */
   .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 
-  /* Pricing tiles */
-  .pricing {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-  .pricing-tile {
-    background: var(--bg-input);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.15s;
-  }
-  .pricing-tile:hover { border-color: var(--accent); }
-  .pricing-tile input[type="radio"] {
-    width: 18px; height: 18px;
-    accent-color: var(--accent);
-    margin: 0;
-    flex-shrink: 0;
-  }
-  .pricing-tile.selected { border-color: var(--accent); background: var(--accent-soft); }
-  .pricing-info { flex: 1; }
-  .pricing-price { font-weight: 700; font-size: 15px; }
-  .pricing-sub { color: var(--text-secondary); font-size: 12px; margin-top: 2px; }
-
   /* Consent */
   .consent {
     background: rgba(255,255,255,0.02);
@@ -324,10 +294,10 @@
 </section>
 
 <section>
-  <h2>Fica a saber quando estiver disponível</h2>
+  <h2>Estamos a abrir a beta</h2>
   <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
     A app é gratuita, sem compras dentro da app, sem anúncios.<br>
-    Deixa o teu email e avisamos-te assim que estiver disponível na App Store.
+    Deixa o teu email — convidamos os primeiros testers por ordem de chegada, antes do lançamento público na App Store.
   </p>
 
   <form id="leadForm" class="form-card" novalidate>
@@ -435,7 +405,6 @@ form.addEventListener('submit', async (e) => {
     if (r.ok) {
       alertOk.style.display = 'block';
       form.reset();
-      document.querySelectorAll('.pricing-tile').forEach(t => t.classList.remove('selected'));
     } else {
       throw new Error(result.error || 'erro_desconhecido');
     }

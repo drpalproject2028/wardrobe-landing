@@ -36,14 +36,6 @@
   input[type="email"], input[type="text"], select { width:100%; background:var(--bg-input); border:1px solid var(--border); border-radius:12px; padding:14px; font-size:15px; color:var(--text); margin-bottom:18px; font-family:inherit; }
   input:focus, select:focus { outline:none; border-color:var(--accent); }
   .hp { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
-  .pricing { display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:18px; }
-  .pricing-tile { background:var(--bg-input); border:1.5px solid var(--border); border-radius:12px; padding:14px 16px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:all 0.15s; }
-  .pricing-tile:hover { border-color:var(--accent); }
-  .pricing-tile input[type="radio"] { width:18px; height:18px; accent-color:var(--accent); margin:0; flex-shrink:0; }
-  .pricing-tile.selected { border-color:var(--accent); background:var(--accent-soft); }
-  .pricing-info { flex:1; }
-  .pricing-price { font-weight:700; font-size:15px; }
-  .pricing-sub { color:var(--text-secondary); font-size:12px; margin-top:2px; }
   .consent { background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:18px; }
   .consent label { display:flex; align-items:flex-start; gap:10px; margin-bottom:12px; font-size:13px; line-height:19px; color:var(--text); cursor:pointer; }
   .consent label:last-child { margin-bottom:0; }
@@ -88,10 +80,10 @@
 </section>
 
 <section>
-  <h2>Get notified when it's live</h2>
+  <h2>We're opening the beta</h2>
   <p style="color:var(--text-secondary); font-size:14px; margin-bottom:20px;">
     The app is free, no in-app purchases, no ads.<br>
-    Drop your email and we'll let you know as soon as it's on the App Store.
+    Drop your email — we're inviting the first testers on a first-come basis, ahead of the public App Store launch.
   </p>
 
   <form id="leadForm" class="form-card" novalidate>
@@ -183,7 +175,6 @@ form.addEventListener('submit', async (e) => {
     if (r.ok) {
       alertOk.style.display = 'block';
       form.reset();
-      document.querySelectorAll('.pricing-tile').forEach(t => t.classList.remove('selected'));
     } else {
       throw new Error(result.error || 'unknown_error');
     }
