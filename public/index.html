@@ -4,126 +4,274 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wardrobe.AI — guarda-roupa organizado por IA</title>
-<meta name="description" content="Wardrobe AI organiza o teu guarda-roupa com IA: classificação profissional, outfits que aprendem contigo, inspiração em designers. Grátis, sem anúncios.">
+<meta name="description" content="Wardrobe.AI organiza o teu guarda-roupa com IA: classificação profissional, outfits que aprendem contigo, partilha editorial em Story. Grátis, sem anúncios.">
 <meta property="og:title" content="Wardrobe.AI — guarda-roupa organizado por IA">
-<meta property="og:description" content="Classificação profissional · outfits que aprendem contigo · inspiração em 8 designers · narrativa editorial. Grátis, sem anúncios.">
+<meta property="og:description" content="Classificação profissional · outfits que aprendem contigo · narrativa editorial em cada look. Grátis, sem anúncios.">
 <meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0A0A0A;
-    --bg-card: #141414;
-    --bg-elevated: #1C1C1C;
-    --bg-input: #242424;
-    --border: #2A2A2A;
-    --text: #fff;
-    --text-secondary: #8E8E93;
-    --text-tertiary: #48484A;
-    --accent: #D4AF37;
-    --accent-soft: rgba(212,175,55,0.12);
-    --success: #30D158;
-    --danger: #FF453A;
+    --bg: #0a0908;
+    --bg-card: #141210;
+    --bg-elevated: #1c1917;
+    --bg-input: #201d1a;
+    --border: #2c2824;
+    --border-soft: #221f1b;
+    --text: #f3ede2;
+    --text-secondary: #a39a8c;
+    --text-tertiary: #5c554a;
+    --accent: #d4af37;
+    --accent-bright: #e8c766;
+    --accent-soft: rgba(212, 175, 55, 0.12);
+    --success: #6ea87a;
+    --danger: #c0664f;
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
   html, body {
     background: var(--bg);
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-family: var(--sans);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
-  main { max-width: 720px; margin: 0 auto; padding: 56px 24px 96px; }
+
+  /* Film grain overlay — quiet texture, not decoration for its own sake */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  main {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 72px 24px 100px;
+  }
 
   /* Lang switcher */
   .lang-switch {
     display: flex;
     justify-content: flex-end;
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-bottom: 24px;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-bottom: 8px;
   }
   .lang-switch a {
-    color: var(--text-secondary);
+    color: var(--text-tertiary);
     text-decoration: none;
-    border-bottom: 1px dashed var(--border);
+    border-bottom: 1px solid transparent;
+    transition: color .2s, border-color .2s;
+    padding-bottom: 1px;
   }
-  .lang-switch a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .lang-switch a:hover { color: var(--accent); border-color: var(--accent); }
 
   /* Hero */
-  .hero { text-align: center; margin-bottom: 56px; }
-  .logo { width: 72px; height: 72px; border-radius: 18px; margin-bottom: 20px; }
+  .hero { text-align: center; margin-bottom: 76px; }
+
+  .mark-frame {
+    position: relative;
+    width: 132px;
+    height: 132px;
+    margin: 0 auto 30px;
+    display: grid;
+    place-items: center;
+  }
+  .mark-frame::before {
+    content: '';
+    position: absolute;
+    inset: -16px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0deg, var(--accent) 90deg, transparent 160deg, transparent 200deg, var(--accent-bright) 300deg, transparent 360deg);
+    opacity: 0.6;
+    filter: blur(3px);
+    animation: mark-spin 10s linear infinite;
+  }
+  .mark-frame::after {
+    content: '';
+    position: absolute;
+    inset: -34px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-soft), transparent 72%);
+    filter: blur(14px);
+    z-index: -1;
+  }
+  @keyframes mark-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .mark-frame::before { animation: none; }
+  }
+
+  .mark {
+    position: relative;
+    width: 88px;
+    height: 88px;
+    border-radius: 22px;
+    box-shadow: 0 10px 34px rgba(212, 175, 55, 0.22), 0 0 0 1px rgba(212, 175, 55, 0.35);
+    transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s;
+    cursor: pointer;
+  }
+  .mark-frame:hover .mark,
+  .mark-frame:active .mark {
+    transform: scale(1.07) rotate(-2deg);
+    box-shadow: 0 16px 46px rgba(212, 175, 55, 0.38), 0 0 0 1px rgba(212, 175, 55, 0.55);
+  }
+
   .kicker {
-    color: var(--text-secondary);
+    color: var(--text-tertiary);
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 3px;
+    font-weight: 500;
+    letter-spacing: 4px;
     text-transform: uppercase;
-    margin-bottom: 14px;
+    margin-bottom: 18px;
   }
   .wordmark {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 56px;
+    font-family: var(--serif);
+    font-size: 60px;
     font-weight: 300;
     letter-spacing: -1.5px;
     line-height: 1.05;
   }
-  .wordmark .dot { color: var(--accent); font-weight: 400; }
+  .wordmark .dot { color: var(--accent); font-style: italic; font-weight: 400; }
   .divider {
-    width: 56px; height: 1px;
-    background: var(--accent);
-    margin: 22px auto;
+    width: 44px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: 26px auto;
   }
   .tagline {
     color: var(--text-secondary);
     font-size: 17px;
-    max-width: 480px;
+    max-width: 420px;
     margin: 0 auto;
-    line-height: 26px;
+    line-height: 27px;
   }
   .badge-soon {
     display: inline-block;
-    margin-top: 22px;
-    padding: 6px 14px;
-    border-radius: 14px;
+    margin-top: 26px;
+    padding: 7px 16px;
+    border-radius: 20px;
     background: var(--accent-soft);
-    border: 1px solid var(--accent);
+    border: 1px solid rgba(212, 175, 55, 0.4);
     color: var(--accent);
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 1.5px;
     text-transform: uppercase;
   }
 
-  /* Sections */
-  section { margin-bottom: 48px; }
-  h2 {
-    font-size: 22px;
-    font-weight: 600;
+  /* Section label */
+  .section-label {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 15px;
     color: var(--accent);
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
     letter-spacing: -0.3px;
-    margin-bottom: 16px;
+    margin-bottom: 32px;
   }
-  .features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 14px;
-  }
-  .feature {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px;
-  }
-  .feature-icon { font-size: 22px; margin-bottom: 8px; }
-  .feature-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .feature-desc { color: var(--text-secondary); font-size: 13px; line-height: 19px; }
 
-  /* Form */
-  .form-card {
+  section { margin-bottom: 64px; }
+
+  /* Editorial index of features — single column, cannot overflow */
+  .index-list { border-top: 1px solid var(--border-soft); }
+  .index-item {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border-soft);
+    transition: padding-left .3s ease, border-color .3s ease;
+  }
+  .index-item:hover {
+    padding-left: 8px;
+    border-bottom-color: var(--border);
+  }
+  .index-num {
+    flex: 0 0 auto;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--accent);
+    opacity: 0.75;
+    line-height: 1.4;
+    min-width: 34px;
+  }
+  .index-body { flex: 1 1 auto; min-width: 0; }
+  .index-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .index-body p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 21px;
+  }
+  .tag-soon {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 2px 8px;
+  }
+  .index-item--soon .index-num,
+  .index-item--soon h3 { opacity: 0.55; }
+
+  /* Beta / form panel */
+  .beta-panel {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 28px 24px;
+    border-radius: 20px;
+    padding: 40px 28px;
+    position: relative;
+    overflow: hidden;
   }
+  .beta-panel::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    right: -20%;
+    width: 60%;
+    height: 220%;
+    background: radial-gradient(circle, var(--accent-soft), transparent 70%);
+    pointer-events: none;
+  }
+  .beta-panel > * { position: relative; z-index: 1; }
+  .beta-panel .section-title { margin-bottom: 14px; }
+  .beta-copy {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 28px;
+    max-width: 440px;
+  }
+
   label.field {
     display: block;
     font-size: 11px;
@@ -151,11 +299,11 @@
 
   /* Consent */
   .consent {
-    background: rgba(255,255,255,0.02);
+    background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 16px;
-    margin-bottom: 18px;
+    margin-bottom: 22px;
   }
   .consent label {
     display: flex;
@@ -169,7 +317,8 @@
   }
   .consent label:last-child { margin-bottom: 0; }
   .consent input[type="checkbox"] {
-    width: 18px; height: 18px;
+    width: 18px;
+    height: 18px;
     accent-color: var(--accent);
     margin: 1px 0 0 0;
     flex-shrink: 0;
@@ -180,16 +329,21 @@
   /* Submit */
   .btn-primary {
     width: 100%;
-    background: var(--accent);
-    color: #000;
+    background: linear-gradient(135deg, var(--accent-bright), var(--accent));
+    color: #14110a;
     border: none;
     border-radius: 14px;
-    padding: 16px;
+    padding: 17px;
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 600;
+    letter-spacing: 0.2px;
     cursor: pointer;
-    transition: opacity 0.15s;
+    transition: transform .2s ease, box-shadow .2s ease, opacity .15s;
     font-family: inherit;
+  }
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(212, 175, 55, 0.28);
   }
   .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
 
@@ -201,12 +355,12 @@
     display: none;
   }
   .alert-success {
-    background: rgba(48,209,88,0.1);
+    background: rgba(110, 168, 122, 0.12);
     border: 1px solid var(--success);
     color: var(--success);
   }
   .alert-error {
-    background: rgba(255,69,58,0.1);
+    background: rgba(192, 102, 79, 0.12);
     border: 1px solid var(--danger);
     color: var(--danger);
   }
@@ -215,16 +369,26 @@
     text-align: center;
     color: var(--text-tertiary);
     font-size: 12px;
-    margin-top: 48px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border-soft);
   }
-  footer a { color: var(--text-secondary); margin: 0 6px; text-decoration: none; }
-  footer a:hover { color: var(--accent); }
+  footer a {
+    color: var(--text-secondary);
+    margin: 0 8px;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+  footer a:hover { color: var(--accent); border-color: var(--accent); }
 
-  @media (max-width: 600px) {
-    .wordmark { font-size: 40px; }
-    main { padding: 40px 18px 60px; }
+  @media (max-width: 480px) {
+    .wordmark { font-size: 44px; }
+    main { padding: 48px 18px 72px; }
+    .section-title { font-size: 24px; }
+    .index-item { gap: 16px; }
+    .index-num { font-size: 19px; min-width: 28px; }
+    .beta-panel { padding: 30px 20px; }
   }
 </style>
 </head>
@@ -237,7 +401,10 @@
 </div>
 
 <section class="hero">
-  <img src="/icon.png" alt="Wardrobe.AI" class="logo">
+  <div class="mark-frame">
+    <img src="/icon.png" alt="Wardrobe.AI" class="mark">
+  </div>
+  <p class="kicker">Guarda-roupa · Curadoria por IA</p>
   <h1 class="wordmark">Wardrobe<span class="dot">.AI</span></h1>
   <div class="divider"></div>
   <p class="tagline">
@@ -248,107 +415,120 @@
 </section>
 
 <section>
-  <h2>O que faz</h2>
-  <div class="features">
-    <div class="feature">
-      <div class="feature-icon">📸</div>
-      <div class="feature-title">Foto + IA classifica</div>
-      <div class="feature-desc">Fotografas. A IA reconhece a peça e arruma‑a em hierarquia profissional — 48 subtipos × 8 grupos.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🏷️</div>
-      <div class="feature-title">Marca detectada</div>
-      <div class="feature-desc">Logo ou etiqueta visível? A IA identifica a marca para te ajudar na curadoria.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">✨</div>
-      <div class="feature-title">Outfits gerados</div>
-      <div class="feature-desc">Por ocasião, estação e contexto. Escolhes uma peça âncora e a app constrói 5 outfits à volta.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🧠</div>
-      <div class="feature-title">Aprende contigo</div>
-      <div class="feature-desc">Marcas o que vestes cada dia. A app evita repetições e propõe combinações novas a partir do teu histórico.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">💎</div>
-      <div class="feature-title">Inspiração — designers</div>
-      <div class="feature-desc">8 referências de estilo (Dior, Saint Laurent, McQueen, Margiela, Tom Ford, Ralph Lauren, Cucinelli, Loro Piana). A IA compara o teu wardrobe e dá um score.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🎭</div>
-      <div class="feature-title">Mood do dia</div>
-      <div class="feature-desc">"Como te queres sentir hoje?" A primeira frase da narrativa do outfit ancora-se aí.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">📐</div>
-      <div class="feature-title">Partilha 9:16</div>
-      <div class="feature-desc">Outfit em formato Story (Instagram, TikTok). Card editorial pronto, com narrativa curta da IA.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🔒</div>
-      <div class="feature-title">Privacidade</div>
-      <div class="feature-desc">Magic Link OTP (sem palavra-passe). Fotos no teu iPhone. Não vendemos nem partilhamos dados.</div>
-    </div>
+  <p class="section-label">Índice</p>
+  <h2 class="section-title">O que faz</h2>
+  <div class="index-list">
+    <article class="index-item">
+      <span class="index-num">01</span>
+      <div class="index-body">
+        <h3>Foto + IA classifica</h3>
+        <p>Fotografas. A IA reconhece a peça e arruma-a em hierarquia profissional — 48 subtipos × 8 grupos.</p>
+      </div>
+    </article>
+    <article class="index-item">
+      <span class="index-num">02</span>
+      <div class="index-body">
+        <h3>Marca detectada</h3>
+        <p>Logo ou etiqueta visível? A IA identifica a marca para te ajudar na curadoria.</p>
+      </div>
+    </article>
+    <article class="index-item">
+      <span class="index-num">03</span>
+      <div class="index-body">
+        <h3>Outfits gerados</h3>
+        <p>Por ocasião, estação e contexto. Escolhes uma peça âncora e a app constrói 5 outfits à volta.</p>
+      </div>
+    </article>
+    <article class="index-item">
+      <span class="index-num">04</span>
+      <div class="index-body">
+        <h3>Aprende contigo</h3>
+        <p>Marcas o que vestes cada dia. A app evita repetições e propõe combinações novas a partir do teu histórico.</p>
+      </div>
+    </article>
+    <article class="index-item">
+      <span class="index-num">05</span>
+      <div class="index-body">
+        <h3>Partilha 9:16</h3>
+        <p>Outfit em formato Story (Instagram, TikTok). Card editorial pronto, com narrativa curta da IA.</p>
+      </div>
+    </article>
+    <article class="index-item">
+      <span class="index-num">06</span>
+      <div class="index-body">
+        <h3>Privacidade</h3>
+        <p>Magic Link OTP (sem palavra-passe). Fotos no teu iPhone. Não vendemos nem partilhamos dados.</p>
+      </div>
+    </article>
+    <article class="index-item index-item--soon">
+      <span class="index-num">07</span>
+      <div class="index-body">
+        <h3>Inspiração — designers <span class="tag-soon">Em breve</span></h3>
+        <p>8 referências de estilo de luxo. A IA vai comparar o teu wardrobe e dar um score de proximidade.</p>
+      </div>
+    </article>
   </div>
 </section>
 
 <section>
-  <h2>Estamos a abrir a beta</h2>
-  <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
-    A app é gratuita, sem compras dentro da app, sem anúncios.<br>
-    Deixa o teu email — convidamos os primeiros testers por ordem de chegada, antes do lançamento público na App Store.
-  </p>
+  <div class="beta-panel">
+    <p class="section-label">Convite</p>
+    <h2 class="section-title">Estamos a abrir a beta</h2>
+    <p class="beta-copy">
+      A app é gratuita, sem compras dentro da app, sem anúncios.
+      Deixa o teu email — convidamos os primeiros testers por ordem de chegada, antes do lançamento público na App Store.
+    </p>
 
-  <form id="leadForm" class="form-card" novalidate>
-    <!-- Honeypot field -->
-    <div class="hp">
-      <input type="text" name="company" tabindex="-1" autocomplete="off">
-    </div>
+    <form id="leadForm" class="form-card" novalidate>
+      <!-- Honeypot field -->
+      <div class="hp">
+        <input type="text" name="company" tabindex="-1" autocomplete="off">
+      </div>
 
-    <label class="field" for="email">Email *</label>
-    <input type="email" id="email" name="email" required autocomplete="email" placeholder="o-teu@exemplo.com">
+      <label class="field" for="email">Email *</label>
+      <input type="email" id="email" name="email" required autocomplete="email" placeholder="o-teu@exemplo.com">
 
-    <label class="field" for="firstName">Nome (opcional)</label>
-    <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="Como te tratamos">
+      <label class="field" for="firstName">Nome (opcional)</label>
+      <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="Como te tratamos">
 
-    <label class="field" for="wardrobeSize">Quantas peças tens no teu guarda-roupa? (opcional)</label>
-    <select id="wardrobeSize" name="wardrobeSize">
-      <option value="">— Prefiro não dizer —</option>
-      <option value="<30">Menos de 30</option>
-      <option value="30-100">30 a 100</option>
-      <option value="100+">Mais de 100</option>
-    </select>
+      <label class="field" for="wardrobeSize">Quantas peças tens no teu guarda-roupa? (opcional)</label>
+      <select id="wardrobeSize" name="wardrobeSize">
+        <option value="">— Prefiro não dizer —</option>
+        <option value="<30">Menos de 30</option>
+        <option value="30-100">30 a 100</option>
+        <option value="100+">Mais de 100</option>
+      </select>
 
-    <label class="field" for="igShare">Partilhas outfits no Instagram / TikTok? (opcional)</label>
-    <select id="igShare" name="igShare">
-      <option value="">— Prefiro não dizer —</option>
-      <option value="yes">Sim, regularmente</option>
-      <option value="sometimes">Às vezes</option>
-      <option value="no">Não</option>
-    </select>
+      <label class="field" for="igShare">Partilhas outfits no Instagram / TikTok? (opcional)</label>
+      <select id="igShare" name="igShare">
+        <option value="">— Prefiro não dizer —</option>
+        <option value="yes">Sim, regularmente</option>
+        <option value="sometimes">Às vezes</option>
+        <option value="no">Não</option>
+      </select>
 
-    <div class="consent">
-      <label>
-        <input type="checkbox" name="consent_18plus" required>
-        <span><span class="req">*</span> Confirmo ter 18 anos ou mais</span>
-      </label>
-      <label>
-        <input type="checkbox" name="consent_privacy" required>
-        <span><span class="req">*</span> Aceito a <a href="/privacidade.html" target="_blank">Política de Privacidade</a></span>
-      </label>
-      <label>
-        <input type="checkbox" name="consent_marketing" checked>
-        <span>Aceito receber emails sobre o lançamento e produtos relacionados</span>
-      </label>
-    </div>
+      <div class="consent">
+        <label>
+          <input type="checkbox" name="consent_18plus" required>
+          <span><span class="req">*</span> Confirmo ter 18 anos ou mais</span>
+        </label>
+        <label>
+          <input type="checkbox" name="consent_privacy" required>
+          <span><span class="req">*</span> Aceito a <a href="/privacidade.html" target="_blank">Política de Privacidade</a></span>
+        </label>
+        <label>
+          <input type="checkbox" name="consent_marketing" checked>
+          <span>Aceito receber emails sobre o lançamento e produtos relacionados</span>
+        </label>
+      </div>
 
-    <button type="submit" class="btn-primary" id="submitBtn">Quero testar →</button>
-    <div id="alertOk" class="alert alert-success">
-      ✓ Recebido. Verifica o teu email — chegou um teste de confirmação.
-    </div>
-    <div id="alertErr" class="alert alert-error"></div>
-  </form>
+      <button type="submit" class="btn-primary" id="submitBtn">Quero testar →</button>
+      <div id="alertOk" class="alert alert-success">
+        ✓ Recebido. Verifica o teu email — chegou um teste de confirmação.
+      </div>
+      <div id="alertErr" class="alert alert-error"></div>
+    </form>
+  </div>
 </section>
 
 <footer>
@@ -414,7 +594,7 @@ form.addEventListener('submit', async (e) => {
     console.error(err);
   } finally {
     btn.disabled = false;
-    btn.textContent = 'Quero acesso prioritário →';
+    btn.textContent = 'Quero testar →';
   }
 });
 </script>
